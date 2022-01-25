@@ -95,11 +95,30 @@
 
         <!-- MAIN -->
         <main class="w-100 d-flex flex-column justify-content-center align-items-center py_100">
+
+            <!-- foreach principale -->
             <?php foreach($faqs as $faq) { ?>
-                <div class="single_faq">
+
+                <!-- Div con la singola faq -->
+                <div class="single_faq w-50 mb-5">
+
+                    <!-- Domanda -->
                     <h2><?php echo $faq['question'] ?></h2>
+
+                    <!-- Risposte -->
+                    <?php foreach($faq['answers'] as $answer_type => $answer_text) { ?>
+                        
+                        <!-- Paragrafo con risposta -->
+                        <p>
+                            <?php echo $answer_text ?>
+                        </p>
+
+                    <?php } ?>    
+                    
                 </div>
+
             <?php } ?>
+
         </main>
 
     </div>
