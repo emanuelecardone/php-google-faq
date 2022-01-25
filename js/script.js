@@ -13,7 +13,14 @@ const app = new Vue(
                 'Domande frequenti'
             ],
             // Link selezionato
-            selectedLink: 4
+            selectedLink: 4,
+            // Links footer
+            footerLinks: [
+                'Google',
+                'Tutto su Google',
+                'Privacy',
+                'Termini'
+            ]
         },
         methods: {
 

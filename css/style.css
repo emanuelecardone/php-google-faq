@@ -1,3 +1,4 @@
+/* HEADER */
 header{
     padding: 0 20px;
 }
@@ -16,6 +17,16 @@ li.selected > a{
     color: blue;
 }
 
+/* MAIN */
 main a{
+    text-decoration: none;
+}
+
+/* FOOTER */
+footer{
+    background-color: #f5f5f5;
+}
+a.footer_link_text{
+    color: grey;
     text-decoration: none;
 }

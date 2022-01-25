@@ -94,7 +94,7 @@
         </header>
 
         <!-- MAIN -->
-        <main class="w-100 d-flex flex-column justify-content-center align-items-center py_100">
+        <main class="w-100 d-flex flex-column justify-content-center align-items-center pt_100">
 
             <!-- foreach principale -->
             <?php foreach($faqs as $faq) { ?>
@@ -166,6 +166,21 @@
             <?php } ?>
 
         </main>
+
+        <!-- FOOTER -->
+        <footer class="w-100 h_70p d-flex justify-content-center align-items-center">
+            <div class="footer_wrapper w-50 h-100 d-flex justify-content-between align-items-center">
+                <ul class="footer_links d-flex align-items-center mb-0 p-0">
+                    <li v-for="footerLink,index in footerLinks" :key="index" class="footer_link me-2">
+                        <a href="#" class="footer_link_text fs_15">{{footerLink}}</a>
+                    </li>
+                </ul>
+                <select class="language_select w_200p">
+                    <option value="ita">Italiano</option>
+                    <option value="en">English</option>
+                </select>
+            </div>
+        </footer>
 
     </div>
 
