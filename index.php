@@ -79,6 +79,7 @@
     
     <div id="root">
 
+        <!-- HEADER -->
         <header class="w-100 h_100p border-bottom border-1 border-secondary">
             <div class="logo_section w-100 h-50 d-flex align-items-center">
                 <img src="img/google-logo.png" alt="Logo Google" class="w_100p"> <h4 class="ms-1 mb-0">Privacy e Termini</h4>
@@ -91,6 +92,15 @@
                 </ul>
             </div>
         </header>
+
+        <!-- MAIN -->
+        <main class="w-100 d-flex flex-column justify-content-center align-items-center py_100">
+            <?php foreach($faqs as $faq) { ?>
+                <div class="single_faq">
+                    <h2><?php echo $faq['question'] ?></h2>
+                </div>
+            <?php } ?>
+        </main>
 
     </div>
 
