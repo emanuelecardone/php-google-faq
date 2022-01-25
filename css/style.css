@@ -4,7 +4,7 @@ header{
 ul{
     list-style-type: none;
 }
-a{
+a.header_link_text{
     color: black;
     text-decoration: none;
     display: inline-block;
@@ -14,4 +14,8 @@ li.selected{
 }
 li.selected > a{
     color: blue;
+}
+
+main a{
+    text-decoration: none;
 }

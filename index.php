@@ -29,8 +29,8 @@
                         '1' => [
                             'text' => 'La società consociata Google che offre i servizi, tratta le tue informazioni ed è responsabile del rispetto delle leggi sulla privacy vigenti. Generalmente Google offre i propri servizi per i consumatori tramite una delle due società seguenti:',
                             'subsub_split_answers' => [
-                                'Google Ireland Limited, se gli utenti sono residenti nello Spazio economico europeo (paesi dell\'Unione europea, oltre a Islanda, Liechtenstein e Norvegia) o in Svizzera.',
-                                'Google LLC, con sede negli Stati Uniti, per il resto del mondo.'
+                                'a' => 'Google Ireland Limited, se gli utenti sono residenti nello Spazio economico europeo (paesi dell\'Unione europea, oltre a Islanda, Liechtenstein e Norvegia) o in Svizzera.',
+                                'b' => 'Google LLC, con sede negli Stati Uniti, per il resto del mondo.'
                             ]
                         ],
                         '2' => 'La versione dei termini che regola il nostro rapporto, che può variare in base alle leggi locali.'
@@ -87,7 +87,7 @@
             <div class="sub_section w-100 h-50 d-flex align-items-center">
                 <ul class="header_links_list h-100 mb-0 p-0 d-flex align-items-center">
                     <li v-for="link,index in headerLinks" :key="index" class="link h-100 d-flex align-items-center me-5" :class="{'selected': index === selectedLink}">
-                        <a href="#">{{link}}</a>
+                        <a class="header_link_text" href="#">{{link}}</a>
                     </li>
                 </ul>
             </div>
@@ -103,14 +103,60 @@
                 <div class="single_faq w-50 mb-5">
 
                     <!-- Domanda -->
-                    <h2><?php echo $faq['question'] ?></h2>
+                    <h2 class="mb_60"><?php echo $faq['question']; ?></h2>
 
                     <!-- Risposte -->
                     <?php foreach($faq['answers'] as $answer_type => $answer_text) { ?>
                         
-                        <!-- Paragrafo con risposta -->
+                        <!-- Paragrafo con risposta/e (i sotto-span saranno all'interno del tag <p>) -->
                         <p>
-                            <?php echo $answer_text ?>
+
+                            <!-- Solo la risposta suddivisa in sezioni ha una chiave non numerica, quindi la pagina stampa direttamente la risposta se la chiave è numerica,
+                            altrimenti stampa/cicla in base al nome della chiave -->
+                            <?php if(is_numeric($answer_type)){
+                                echo $answer_text;
+                                
+                            } elseif($answer_type === 'split_answer'){ ?>
+
+                                <!-- Prima risposta, che si divide in un testo(span) e in punti 1 e 2 che verranno ciclati -->
+
+                                <!-- Testo principale -->
+                                <span class="d-block mb_30"><?php echo $answer_text['text']; ?></span>
+
+                                <!-- Ciclo punti 1 e 2, la chiave è un id quindi non è 0 e 1 ma parte da 1, le chiavi sono 1 e 2 -->
+                                <?php foreach($answer_text['sub_split_answers'] as $sub_answer_id => $sub_answer){ 
+
+                                    // La prima sotto-risposta (la cui chiave è "1") si divide in 2 sotto-sotto-risposte, quindi ciclo anche quelle
+                                    if($sub_answer_id === 1){ ?>
+
+                                        <span class="d-block ms_50 mb_20"><?php echo $sub_answer_id . '. ' . $sub_answer['text']; ?></span>
+                                        <!-- Ciclo sulle sotto risposte a e b -->
+                                        <?php foreach($sub_answer['subsub_split_answers'] as $sub_sub_answer_id => $sub_sub_answer){ ?>
+                                            <span class="d-block ms_100 mb_20"><?php echo $sub_sub_answer_id . '. ' . $sub_sub_answer; ?></span>
+                                        <?php }
+                                    } else{ ?>
+                                        <!-- Testo per la sotto-risposta che non ha le sotto-sotto-risposte -->
+                                        <span class="d-block ms_50 mb_30"><?php echo $sub_answer_id . '. ' . $sub_answer; ?></span> 
+                                    <?php }
+
+                                } ?>
+                            <?php } elseif($answer_type === 'normal_answer'){ ?>
+
+                                <!-- Seconda risposta, che ha solo un testo -->
+                                <span><?php echo $answer_text; ?> </span>
+                            <?php } elseif($answer_type === 'advice') { ?>
+
+                                <!-- Terza risposta, che è una lista di consigli per stabilire il paese associato -->
+
+                                <!-- Testo principale (usato come h5 in quanto è in grassetto) -->
+                                <h5 class="mt_70 mb_30"> <?php echo $answer_text['text']; ?></h5>
+
+                                <!-- Ciclo ora i consigli contenuti nell'array che corrisponde alla chiave "advices" -->
+                                <?php foreach($answer_text['advices'] as $single_advice){ ?>
+                                    <span class="d-block mb_30"> <?php echo $single_advice; ?></span>
+                                <?php }
+
+                            } ?>
                         </p>
 
                     <?php } ?>    
